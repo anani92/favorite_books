@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('../imgs/background.jpg');
+}
+
+.login,
+.signup {
+  opacity: 0.95;
+  background-color: rgba(24, 20, 15, 0.833);
+  color: #ffe !important;
+}
+
+.errors {
+  display: block;
+  margin: 0 auto;
+  font-size: 1rem;
+  background-color: rgba(229, 19, 19, 0.753);
+  color: #fff;
+  width: max-content;
+}
+.errors ul {
+  list-style: none;
+}

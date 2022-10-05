@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+}
+body {
+  color: white;
+  background-image: linear-gradient(to right, #c31432, #240b36f5);
+}
+
+header {
+  background-color: #1b0927;
+}
+
+button {
+  padding: 0.5rem;
+}
+
+a[href='/books/logout'] {
+  color: #ffe;
+}

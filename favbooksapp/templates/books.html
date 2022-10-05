@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favorite Books</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/7a6f9ad03e.js"
+      crossorigin="anonymous"
+    ></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <header class="header d-flex justify-content-between text-white">
+      <h2 class="m-2">Welcome, <span>{{user.first_name}}</span></h2>
+      <a href="/books/logout" class="m-2"><h5>Logout</h5></a>
+    </header>
+    <div class="container d-flex justify-content-around my-5">
+      <div class="add-tofav">
+        <form
+          action="/books/addfav/{{user.id}}"
+          method="post"
+          class="form-gourp"
+        >
+          {%csrf_token%}
+          <p>
+            Title:
+            <input
+              class="form-control"
+              type="text"
+              name="book_title"
+              id="title"
+            />
+          </p>
+          <p>
+            Description:
+            <textarea
+              class="form-control"
+              name="book_desc"
+              id="desc"
+              cols="30"
+              rows="5"
+            ></textarea>
+          </p>
+          <button class="btn-outline-primary">Add</button>
+        </form>
+      </div>
+      <div class="all_book my-3">
+        <h3>All books</h3>
+        <ul class="list-unstyled">
+          {% for book in books %}
+          <li class="my-1">
+            <p class="d-flex">
+              <a href="/books/{{book.id}}" class="text-white">
+                <h4><i class="fa-solid fa-book-open"></i>{{book.title}}</h4>
+              </a>
+            </p>
+            <p>(Added by: {{book.uploaded_by.first_name}})</p>
+            <p>{{book.description}}</p>
+
+            {% if book in user.liked_books.all %}
+
+            <a href="/books/remove_from_favorites/{{book.id}}">
+              <button class="btn-outline-danger">Remove from favorites</button>
+            </a>
+            {%else%}
+            <form action="/books/add_to_favorites/{{book.id}}" method="post">
+              {%csrf_token%}
+              <button class="btn-outline-primary">Add to favorites</button>
+            </form>
+            {%endif%}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
